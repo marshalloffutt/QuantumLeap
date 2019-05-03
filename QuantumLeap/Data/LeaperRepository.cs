@@ -12,6 +12,16 @@ namespace QuantumLeap.Data
     {
         const string ConnectionString = "Server=localhost;Database=QuantumLeap;Trusted_Connection=True;";
 
+        public IEnumerable<Leaper> GetAllLeapers()
+        {
+            using (var db = new SqlConnection(ConnectionString))
+            {
+                var leapers = db.Query<Leaper>("Select * from Leapers").ToList();
+
+                return leapers;
+            }
+        }
+
         public Leaper AddLeaper(string name, int age)
         {
             using (var db = new SqlConnection(ConnectionString))

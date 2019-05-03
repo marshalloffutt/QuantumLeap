@@ -13,12 +13,25 @@ namespace QuantumLeap.Controllers
     [ApiController]
     public class LeapersController : ControllerBase
     {
+        readonly LeaperRepository _leaperRepository;
+
+        public LeapersController()
+        {
+            _leaperRepository = new LeaperRepository();
+        }
+
+        [HttpGet]
+        public ActionResult GetAllLeapers()
+        {
+            var leapers = _leaperRepository.GetAllLeapers();
+
+            return Ok(leapers);
+        }
+
         [HttpPost]
         public ActionResult AddLeaper(CreateLeaperRequest createRequest)
         {
-            var respository = new LeaperRepository();
-
-            var newLeaper = respository.AddLeaper(
+            var newLeaper = _leaperRepository.AddLeaper(
                 createRequest.Name,
                 createRequest.Age);
 
