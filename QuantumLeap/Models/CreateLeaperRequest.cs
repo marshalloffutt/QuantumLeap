@@ -9,5 +9,7 @@ namespace QuantumLeap.Models
     {
         public string Name { get; set; }
         public int Age { get; set; }
+        public decimal Budget { get; set; }
+        public DateTime HomeYear { get; set; }
     }
 }

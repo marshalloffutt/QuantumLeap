@@ -28,12 +28,14 @@ namespace QuantumLeap.Controllers
             return Ok(leapers);
         }
 
-        [HttpPost]
+        [HttpPost("register")]
         public ActionResult AddLeaper(CreateLeaperRequest createRequest)
         {
             var newLeaper = _leaperRepository.AddLeaper(
                 createRequest.Name,
-                createRequest.Age);
+                createRequest.Age,
+                createRequest.Budget,
+                createRequest.HomeYear);
 
             return Created($"/api/leaper/{newLeaper.Id}", newLeaper);
         }

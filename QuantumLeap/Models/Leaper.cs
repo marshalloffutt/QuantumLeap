@@ -10,11 +10,15 @@ namespace QuantumLeap.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public int Age { get; set; }
+        public decimal Budget { get; set; }
+        public DateTime HomeYear { get; set; }
 
-        public Leaper(string name, int age)
-        {
-            Name = name;
-            Age = age;
-        }
+        //public Leaper(string name, int age, decimal budget, DateTime homeYear)
+        //{
+        //    Name = name;
+        //    Age = age;
+        //    Budget = budget;
+        //    HomeYear = homeYear;
+        //}
     }
 }
