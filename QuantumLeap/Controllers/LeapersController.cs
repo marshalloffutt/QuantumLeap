@@ -28,7 +28,7 @@ namespace QuantumLeap.Controllers
             return Ok(leapers);
         }
 
-        [HttpPost("register")]
+        [HttpPost("add")]
         public ActionResult AddLeaper(CreateLeaperRequest createRequest)
         {
             var newLeaper = _leaperRepository.AddLeaper(

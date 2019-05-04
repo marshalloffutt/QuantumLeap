@@ -5,12 +5,9 @@ using System.Threading.Tasks;
 
 namespace QuantumLeap.Models
 {
-    public class Leaper
+    public class Leapee
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public int Age { get; set; }
-        public decimal Budget { get; set; }
-        public DateTime HomeYear { get; set; }
     }
 }
