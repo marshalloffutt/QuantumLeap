@@ -18,16 +18,16 @@ namespace QuantumLeap.Data
             {
 
                 // Get a random event where the timeline is not correct
-                var myEvent = db.Query<Event>(@"
-                                Select top 1 e.*
+                var eventId = db.Query<Event>(@"
+                                Select top 1 e.Id
                                 From Event e
                                 Where e.iscorrect = 0
                                 Order By NEWID()");
 
 
                 // Get a random leapee
-                var myLeapee = db.Query<Leapee>(@"
-                                Select top 1 l.*
+                var leapeeId = db.Query<Leapee>(@"
+                                Select top 1 l.Id
                                 From Leapee l
                                 Order By NEWID()");
 
@@ -37,15 +37,33 @@ namespace QuantumLeap.Data
 
                 var myLeaper = leapers.FirstOrDefault(leaper => leaper.Id == leaperId);
 
-                if (myLeaper.Budget > 10000)
+                if (myLeaper.Budget >= 10000)
                 {
-                    var insertQuery = @"
-                            Insert into [dbo].[Leap],[LeaperId]("
+                    var insertQuery = $@"
+                            Insert into [dbo].[Leap]([LeaperId],[LeapeeId],[EventId])
+                            Output inserted .*
+                            Values(@leaperId, {leapeeId}, {eventId})";
+
+                    var parameters = new
+                    {
+                        LeaperId = leaperId,
+                        LeapeeId = leapeeId,
+                        EventId = eventId
+                    };
+
+                    var newLeap = db.QueryFirstOrDefault<Leap>(insertQuery, parameters);
+
+                    if (newLeap != null)
+                    {
+                        return newLeap;
+                    }
                 }
-
-                return leap;
+                else
+                {
+                    throw new Exception("You cannot afford to leap. You are stuck here.");
+                }
             }
-
+            throw new Exception("Could not create Leap");
         }
     }
 }
