@@ -22,15 +22,14 @@ namespace QuantumLeap.Data
                                 Select top 1 e.Id
                                 From Event e
                                 Where e.iscorrect = 0
-                                Order By NEWID()");
+                                Order By NEWID()").ToArray().First().Id;
 
 
                 // Get a random leapee
                 var myLeapeeId = db.Query<Leapee>(@"
                                 Select top 1 l.Id
                                 From Leapee l
-                                Order By NEWID()");
-
+                                Order By NEWID()").ToArray().First().Id;
 
                 // Get leaper, and check for budget
                 var leapers = db.Query<Leaper>("Select * from Leaper").ToList();
