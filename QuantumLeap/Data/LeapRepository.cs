@@ -18,7 +18,7 @@ namespace QuantumLeap.Data
             {
 
                 // Get a random event where the timeline is not correct
-                var eventId = db.Query<Event>(@"
+                var myEventId = db.Query<Event>(@"
                                 Select top 1 e.Id
                                 From Event e
                                 Where e.iscorrect = 0
@@ -26,7 +26,7 @@ namespace QuantumLeap.Data
 
 
                 // Get a random leapee
-                var leapeeId = db.Query<Leapee>(@"
+                var myLeapeeId = db.Query<Leapee>(@"
                                 Select top 1 l.Id
                                 From Leapee l
                                 Order By NEWID()");
@@ -42,13 +42,11 @@ namespace QuantumLeap.Data
                     var insertQuery = $@"
                             Insert into [dbo].[Leap]([LeaperId],[LeapeeId],[EventId])
                             Output inserted .*
-                            Values(@leaperId, {leapeeId}, {eventId})";
+                            Values(@leaperId, {myLeapeeId}, {myEventId})";
 
                     var parameters = new
                     {
                         LeaperId = leaperId,
-                        LeapeeId = leapeeId,
-                        EventId = eventId
                     };
 
                     var newLeap = db.QueryFirstOrDefault<Leap>(insertQuery, parameters);
