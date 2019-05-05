@@ -20,6 +20,14 @@ namespace QuantumLeap.Controllers
             _leapRepository = new LeapRepository();
         }
 
+        [HttpGet]
+        public ActionResult GetAllLeaps()
+        {
+            var leaps = _leapRepository.GetAllLeaps();
+
+            return Ok(leaps);
+        }
+
         [HttpPost("add")]
         public ActionResult AddLeap(CreateLeapRequest createRequest)
         {
