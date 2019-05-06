@@ -39,5 +39,13 @@ namespace QuantumLeap.Controllers
 
             return Created($"/api/leaper/{newLeaper.Id}", newLeaper);
         }
+
+        [HttpPut("{leaperId}")]
+        public ActionResult UpdateLeaperBudget(Leaper leaper)
+        {
+            var updatedLeaper = _leaperRepository.UpdateBudget(leaper);
+
+            return Ok(updatedLeaper);
+        }
     }
 }
