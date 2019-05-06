@@ -48,5 +48,24 @@ namespace QuantumLeap.Data
             }
             throw new Exception("Could not create event");
         }
+
+        public Event CompleteEvent(Event eventToUpdate)
+        {
+            using (var db = new SqlConnection(ConnectionString))
+            {
+                var updateQuery = @"
+                    Update event
+                    Set IsCorrect = 1
+                    Where Id = @id";
+
+                var rowsAffected = db.Execute(updateQuery, eventToUpdate);
+
+                if (rowsAffected == 1)
+                {
+                    return eventToUpdate;
+                }
+            }
+            throw new Exception("Could not complete event");
+        }
     }
 }

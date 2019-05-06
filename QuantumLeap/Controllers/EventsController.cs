@@ -39,5 +39,13 @@ namespace QuantumLeap.Controllers
 
             return Created($"/api/event/{newEvent.Id}", newEvent);
         }
+
+        [HttpPut("{eventId}")]
+        public ActionResult CompleteEvent(Event eventToUpdate)
+        {
+            var completedEvent = _eventRepository.CompleteEvent(eventToUpdate);
+
+            return Ok(completedEvent);
+        }
     }
 }
