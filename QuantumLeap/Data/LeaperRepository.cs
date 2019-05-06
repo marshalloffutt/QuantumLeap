@@ -48,5 +48,24 @@ namespace QuantumLeap.Data
             }
             throw new Exception("Could not create leaper");
         }
+
+        public Leaper UpdateBudget(Leaper leaperToUpdate)
+        {
+            using (var db = new SqlConnection(ConnectionString))
+            {
+                var updateQuery = @"
+                    Update leaper
+                    Set Budget = Budget - 10000
+                    Where Id = @id";
+
+                var rowsAffected = db.Execute(updateQuery, leaperToUpdate);
+
+                if (rowsAffected == 1)
+                {
+                    return leaperToUpdate;
+                }
+            }
+            throw new Exception("Could not update leaper's budget");
+        }
     }
 }
